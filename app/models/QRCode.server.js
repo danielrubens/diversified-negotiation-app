@@ -39,4 +39,43 @@ export function getDestinationUrl(qrCode) {
     invariant(match, "Unrecognized product variant ID");
   
     return `https://${qrCode.shop}/cart/${match[1]}:1`;
-  }  
+  }
+
+async function supplementQRCode(qrCode, graphql) {
+    const qrCodeImagePromise = getQRCodeImage(qrCode.id);
+  
+    const response = await graphql(
+      `
+        query supplementQRCode($id: ID!) {
+          product(id: $id) {
+            title
+            images(first: 1) {
+              nodes {
+                altText
+                url
+              }
+            }
+          }
+        }
+      `,
+      {
+        variables: {
+          id: qrCode.productId,
+        },
+      }
+    );
+  
+    const {
+      data: { product },
+    } = await response.json();
+  
+    return {
+      ...qrCode,
+      productDeleted: !product?.title,
+      productTitle: product?.title,
+      productImage: product?.images?.nodes[0]?.url,
+      productAlt: product?.images?.nodes[0]?.altText,
+      destinationUrl: getDestinationUrl(qrCode),
+      image: await qrCodeImagePromise,
+    };
+  }
