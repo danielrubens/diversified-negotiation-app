@@ -79,3 +79,23 @@ async function supplementQRCode(qrCode, graphql) {
       image: await qrCodeImagePromise,
     };
   }
+
+export function validateQRCode(data) {
+    const errors = {};
+  
+    if (!data.title) {
+      errors.title = "Title is required";
+    }
+  
+    if (!data.productId) {
+      errors.productId = "Product is required";
+    }
+  
+    if (!data.destination) {
+      errors.destination = "Destination is required";
+    }
+  
+    if (Object.keys(errors).length) {
+      return errors;
+    }
+  }
