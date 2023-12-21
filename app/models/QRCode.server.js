@@ -29,3 +29,14 @@ export function getQRCodeImage(id) {
     const url = new URL(`/qrcodes/${id}/scan`, process.env.SHOPIFY_APP_URL);
     return qrcode.toDataURL(url.href);
   }
+
+export function getDestinationUrl(qrCode) {
+    if (qrCode.destination === "product") {
+      return `https://${qrCode.shop}/products/${qrCode.productHandle}`;
+    }
+  
+    const match = /gid:\/\/shopify\/ProductVariant\/([0-9]+)/.exec(qrCode.productVariantId);
+    invariant(match, "Unrecognized product variant ID");
+  
+    return `https://${qrCode.shop}/cart/${match[1]}:1`;
+  }  
