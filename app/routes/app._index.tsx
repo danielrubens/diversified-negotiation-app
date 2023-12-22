@@ -11,6 +11,7 @@ import {
   BlockStack,
   Box,
   EmptyState,
+  IndexTable,
   List,
   Link,
   InlineStack,
@@ -38,6 +39,28 @@ const EmptyQRCodeState = ({ onAction}: any) => (
   >
     <p>Allow customers to scan codes and buy products using their phones.</p>
   </EmptyState>
+);
+
+const QRTable = ({ qrCodes }: any) => (
+  <IndexTable
+    resourceName={{
+      singular: "QR code",
+      plural: "QR codes",
+    }}
+    itemCount={qrCodes.length}
+    headings={[
+      { title: "Thumbnail", hidden: true },
+      { title: "Title" },
+      { title: "Product" },
+      { title: "Date created" },
+      { title: "Scans" },
+    ]}
+    selectable={false}
+  >
+    {qrCodes.map((qrCode) => (
+      <QRTableRow key={qrCode.id} qrCode={qrCode} />
+    ))}
+  </IndexTable>
 );
 
 export const action = async ({ request }: ActionFunctionArgs) => {
