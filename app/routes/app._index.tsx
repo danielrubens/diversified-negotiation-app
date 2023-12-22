@@ -15,12 +15,16 @@ import {
   InlineStack,
 } from "@shopify/polaris";
 import { authenticate } from "../shopify.server";
+import {getQRCodes} from "../models/QRCode.server";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  await authenticate.admin(request);
+export async function loader({ request } : any) {
+  const { admin, session } = await authenticate.admin(request);
+  const qrCodes = await getQRCodes(session.shop, admin.graphql);
 
-  return null;
-};
+  return json({
+    qrCodes,
+  });
+}
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { admin } = await authenticate.admin(request);
