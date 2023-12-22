@@ -2,7 +2,7 @@
 
 name = "diversified-negotiation-app"
 client_id = "197d20a47ef719926b6ecdc98df95e88"
-application_url = "https://potter-deutsch-maximize-functioning.trycloudflare.com"
+application_url = "https://kodak-virgin-bend-legs.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,9 +11,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://potter-deutsch-maximize-functioning.trycloudflare.com/auth/callback",
-  "https://potter-deutsch-maximize-functioning.trycloudflare.com/auth/shopify/callback",
-  "https://potter-deutsch-maximize-functioning.trycloudflare.com/api/auth/callback"
+  "https://kodak-virgin-bend-legs.trycloudflare.com/auth/callback",
+  "https://kodak-virgin-bend-legs.trycloudflare.com/auth/shopify/callback",
+  "https://kodak-virgin-bend-legs.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
